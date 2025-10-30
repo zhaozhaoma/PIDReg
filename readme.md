@@ -1,6 +1,11 @@
 # PIDReg: Explainable Multimodal Regression via Information Decomposition
 
 ## Overview
+<p align="center">
+  <img src="[https://github.com/zhaozhaoma/Images/blob/main/ICASSP2025/KL%20Divergenc%26%20CS%20Divergence%20Comparison.png](https://github.com/zhaozhaoma/Images/blob/main/ICLR2026/Flow.png)" width="500" alt="CS-TE Overview"/>
+  <br>
+  <em>Figure 1: KL divergence is infinite even though there is an overlap between supp(p) and supp(q), but neither is a subset of the other. CS divergence does not have such constraint.</em>
+</p>
 
 PIDReg is designed to fuse information from two modalities while automatically determining the optimal contribution of each modality through PID-based weight computation. The model learns to decompose the mutual information between modalities and the target variable into:
 - **Unique Information**: Information exclusive to each modality
