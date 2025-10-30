@@ -7,9 +7,9 @@ import os
 import argparse
 import json
 from tqdm import tqdm
-from PIDRegModel import PIDRegModel
-from PIDRegTrainer import PIDRegTrainer
-from csv_data_loader import load_csv_data, create_csv_dataloaders
+from modules.PIDRegModel import PIDRegModel
+from modules.PIDRegTrainer import PIDRegTrainer
+from modules.csv_data_loader import load_csv_data, create_csv_dataloaders
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 DEFAULT_DATA_DIR = os.path.join(SCRIPT_DIR, 'data')
@@ -35,7 +35,7 @@ def main():
     
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
-    csv_path = os.path.join(args.data_path, 'Superconductivity.csv')
+    csv_path = os.path.join(args.data_path, 'sample.csv')
     print(f"Loading CSV dataset: {csv_path}")
     
     train_data, val_data, test_data, feature_dims, scalers = load_csv_data(
