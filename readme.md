@@ -91,7 +91,7 @@ python main.py \
 
 ## Citation
 
-If you utilize PIDReg in your work, we would appreciate your citation of the following paper 📃:
+If you utilize PIDReg in your work, we would appreciate your citation of the following paper📃:
 
 ```
 @article{,
@@ -104,7 +104,7 @@ If you utilize PIDReg in your work, we would appreciate your citation of the fol
 
 ## Contact
 
-For any questions or feedback, please feel free to reach out to us via email: `zhaozhaoma@gatech.edu`
+For any questions or feedback, please feel free to reach out to us via email: `zhaozhaoma@zju.edu.cn`
 
 ---
 
