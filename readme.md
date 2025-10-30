@@ -91,7 +91,7 @@ python main.py \
 
 ## Citation
 
-If you utilize PIDReg in your work, we would appreciate your citation of the following paper📃:
+If you utilize PIDReg in your work, we would appreciate your citation of the following paper 📃:
 
 ```
 @article{,
