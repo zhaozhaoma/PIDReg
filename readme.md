@@ -2,36 +2,36 @@
 
 ## Overview
 <p align="center">
-  <img src="[https://github.com/zhaozhaoma/Images/blob/main/ICASSP2025/KL%20Divergenc%26%20CS%20Divergence%20Comparison.png](https://github.com/zhaozhaoma/Images/blob/main/ICLR2026/Flow.png)" width="500" alt="CS-TE Overview"/>
-  <br>
-  <em>Figure 1: KL divergence is infinite even though there is an overlap between supp(p) and supp(q), but neither is a subset of the other. CS divergence does not have such constraint.</em>
+  <img src="https://github.com/zhaozhaoma/Images/blob/main/ICLR2026/Flow.png" width="1000" alt="Overview"/>
 </p>
 
-PIDReg is designed to fuse information from two modalities while automatically determining the optimal contribution of each modality through PID-based weight computation. The model learns to decompose the mutual information between modalities and the target variable into:
-- **Unique Information**: Information exclusive to each modality
-- **Redundant Information**: Overlapping information between modalities  
-- **Synergistic Information**: Information that emerges only when both modalities are combined
+| |
+|:--:|
+| *Framework of **P**artial **I**nformation **D**ecomposition for Multimodal **Reg**ression (**PIDReg**), illustrated with video and audio modalities, where $`P(X_{1})`$, $`P(X_{2})`$, and $`P(Y)`$ denote empirical data distributions that may deviate from Gaussianity (e.g., skewed or heavy-tailed).* |
 
-## Key Features
+PIDReg adaptively fuses two input modalities by learning how much each modality should contribute to prediction, rather than relying on fixed or hand-tuned weights. During training, PIDReg operates in the joint latent space of the modalities and decomposes the information into:
 
-- **Dynamic Fusion Weights**: Automatically computes fusion weights based on PID decomposition
-- **Information Bottleneck**: Incorporates variational information bottleneck for each modality
-- **Conditional Mutual Information Minimization**: Ensures modality-specific features remain informative
-- **Adaptive Lambda Learning**: Learnable parameters control information bottleneck strength
-- **PID Stability Detection**: Automatically fixes fusion weights when PID parameters stabilize
+- 🔺 **Unique Information**  
+  Modality-specific information that is captured by one modality but not the other.
 
+- 🔶 **Redundant Information**  
+  Overlapping information between modalities.
 
-## Requirements
+- 🔴 **Synergistic Information**  
+  Information that emerges when both modalities are considered jointly, interactions that neither modality can provide alone.
 
-```bash
-matplotlib==3.10.3
-numpy==2.2.6
-pandas==2.2.3
-scikit_learn==1.6.1
-scipy==1.15.3
-torch==2.5.1+cu124
-tqdm==4.66.2
-```
+By explicitly estimating these components, PIDReg can (i) quantify what each modality is truly contributing, and (ii) weight modalities accordingly during regression.
+
+##  Key Features
+
+| 🌈 | Feature | Description |
+|:--:|:--|:--|
+| ① | **Dynamic Fusion Weights** | Learns optimal fusion weights via PID-based decomposition, eliminating hand-crafted balancing. |
+| ② | **Information Bottleneck** | Enforces compact yet informative latent representations for each modality. |
+| ③ | **Conditional MI Minimization** | Minimizes redundancy to enhance modality-specific informativeness. |
+| ④ | **Adaptive λ-Learning** | Automatically adjusts information bottleneck strength through learnable λ parameters. |
+| ⑤ | **PID Stability Detection** | Detects stabilization of PID terms and freezes weights to prevent overfitting. |
+
 
 ## Installation
 
@@ -49,22 +49,32 @@ pip install -r requirements.txt
 
 ## Data Format
 
-This PIDReg Version expects CSV data with the following structure:
-- Columns 0-80: Features for Modal 1
-- Columns 81-166: Features for Modal 2  
-- Column 167: Target variable
+To make PIDReg directly runnable, we include a curated sample dataset (`./data/sample.csv`). This file contains 5,000 rows subsampled from the original *Superconductivity* dataset used in our experiments. Each row in `sample.csv` follows a unified and intuitive column layout:
 
-Example dataset: Superconductivity.csv
+| Index Range | Description | Modality |
+|:--:|:--|:--:|
+| 0–80 | Feature dimensions for the first input source | **Modality 1** |
+| 81–166 | Feature dimensions for the second input source | **Modality 2** |
+| 167 | Continuous target variable used for regression | **Target Variable** |
+
+## Model Components
+
+| File | Purpose | Key Functionalities |
+|:--|:--|:--|
+| **`PIDRegModel.py`** | Core model definition | • Implements **modality-specific information bottlenecks**  <br> • Computes **PID-based fusion weights** for adaptive modality contribution  <br> • Incorporates **Gaussian reconstruction** and **Cauchy–Schwarz divergence** regularizations |
+| **`PIDRegTrainer.py`** | Training orchestration | • Uses **dual optimizers** (one for model parameters, one for λ)  <br> • Integrates a scheduler for adaptive learning rate control  <br> • Performs **PID stability detection** and **automatic fusion-weight freezing** once convergence reached |
+| **`CMICalculator.py`** | Conditional mutual information module | • Estimates **conditional mutual information (CMI)** between modalities and targets  <br> • Guides training toward **reducing information leakage** and enhancing modality specificity |
+| **`csv_data_loader.py`** | Data processing and preparation | • Automatically splits data into **train / validation / test** sets  <br> • Applies **standard scaling** to both features and target  <br> • Supports flexible dataset paths and batch construction |
 
 ## Usage
 
-### Basic Training
+1. Basic Training
 
 ```bash
 python main.py --data_path ./data --n_epochs 200 --batch_size 256
 ```
 
-### Advanced Configuration
+2. Advanced Configuration
 
 ```bash
 python main.py \
@@ -79,25 +89,30 @@ python main.py \
     --latent_dim 64
 ```
 
-## Model Components
+## Citation
 
-### PIDRegModel.py
-Core model implementation featuring:
-- Information bottleneck implementation
-- PID-based fusion weight computation
-- Gauss loss and CS divergence loss regularizations
+If you utilize PIDReg in your work, we would appreciate your citation of the following paper📃:
 
-### PIDRegTrainer.py
-Training logic including:
-- Separate optimizers for model and λ parameters
-- Learning rate scheduling with ReduceLROnPlateau
-- PID stability detection and automatic weight fixing
+```
+@article{,
+  title={Explainable Multimodal Regression via Information Decomposition},
+  author={Zhaozhao Ma and Shujian YU},
+  journal={},
+  year={}
+}
+```
 
-### CMICalculator.py
-Conditional mutual information calculator using:
-- CMI computation estimation
+## Contact
 
-### csv_data_loader.py
-Data loading utilities:
-- Automatic train/validation/test splitting
-- Standard scaling for features and labels
+For any questions or feedback, please feel free to reach out to us via email: `zhaozhaoma@gatech.edu`
+
+---
+
+<div align="center">
+
+Built with ❤️, and ☀️🌙
+
+</div>
+
+---
+
