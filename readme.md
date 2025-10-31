@@ -37,6 +37,7 @@ By explicitly estimating these components, PIDReg can (i) quantify what each mod
 
 1. Repository preparation:
 ```bash
+git clone https://github.com/zhaozhaoma/PIDReg.git
 cd PIDReg
 ```
 
