@@ -95,14 +95,11 @@ python main.py \
 If you utilize PIDReg in your work, we would appreciate your citation of the following paper 📃:
 
 ```
-@misc{ma2025explainablemultimodalregressioninformation,
-      title={Explainable Multimodal Regression via Information Decomposition}, 
-      author={Zhaozhao Ma and Shujian Yu},
-      year={2025},
-      eprint={2512.22102},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2512.22102}, 
+@article{ma2025explainable,
+  title={Explainable Multimodal Regression via Information Decomposition},
+  author={Ma, Zhaozhao and Yu, Shujian},
+  journal={arXiv preprint arXiv:2512.22102},
+  year={2025}
 }
 ```
 
