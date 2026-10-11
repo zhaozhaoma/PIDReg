@@ -2,7 +2,7 @@
 
 ## Overview
 <p align="center">
-  <img src="https://github.com/zhaozhaoma/Images/blob/main/ICLR2026/Flow.png" width="1000" alt="Overview"/>
+  <img width="1798" height="790" alt="image" src="https://github.com/user-attachments/assets/398135b5-3793-44a2-b062-3b201fa74a4a" />
 </p>
 
 | |
