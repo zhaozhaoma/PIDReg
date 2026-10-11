@@ -105,7 +105,7 @@ If you utilize PIDReg in your work, we would appreciate your citation of the fol
 
 ## Contact
 
-For any questions or feedback, please feel free to reach out to us via email: `zhaozhaoma@zju.edu.cn`
+For any questions or feedback, please feel free to reach out to us via email: `zhaozhaomakeit@gmail.com`
 
 ---
 
